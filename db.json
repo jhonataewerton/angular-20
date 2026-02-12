@@ -1,0 +1,22 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "title": "VA",
+      "value": 100,
+      "type": "income"
+    },
+    {
+      "id": 2,
+      "title": "Aluguel",
+      "value": 200,
+      "type": "outcome"
+    },
+    {
+      "id": 3,
+      "title": "Salário",
+      "value": 500,
+      "type": "income"
+    }
+  ]
+}
