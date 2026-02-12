@@ -4,7 +4,7 @@ import { ɵEmptyOutletComponent, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
-  imports: [Header, RouterOutlet],
+  imports: [Header],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
 })
