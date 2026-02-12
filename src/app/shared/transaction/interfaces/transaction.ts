@@ -6,3 +6,5 @@ export interface Transaction {
   type: TransactionType;
   title: string;
 }
+
+export type TransactionPayload = Omit<Transaction, 'id'>;

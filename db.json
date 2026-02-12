@@ -17,6 +17,48 @@
       "title": "Salário",
       "value": 500,
       "type": "income"
+    },
+    {
+      "title": "Salário",
+      "type": "income",
+      "value": 2500,
+      "id": 4
+    },
+    {
+      "title": "Salário",
+      "type": "income",
+      "value": 2500,
+      "id": 5
+    },
+    {
+      "title": "Mercado",
+      "type": "outcome",
+      "value": 2000,
+      "id": 6
+    },
+    {
+      "title": "teste",
+      "type": "income",
+      "value": 1231233,
+      "id": 7
+    },
+    {
+      "title": "teste",
+      "type": "income",
+      "value": 123123,
+      "id": 8
+    },
+    {
+      "title": "teste",
+      "type": "income",
+      "value": 123123,
+      "id": 9
+    },
+    {
+      "title": "teste",
+      "type": "income",
+      "value": 123,
+      "id": 10
     }
   ]
 }
