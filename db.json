@@ -1,16 +1,10 @@
 {
   "transactions": [
     {
-      "title": "VA",
+      "title": "Aluguel1",
       "type": "outcome",
-      "value": 1001,
-      "id": 1
-    },
-    {
-      "id": 2,
-      "title": "Aluguel",
       "value": 200,
-      "type": "outcome"
+      "id": 2
     },
     {
       "id": 3,
@@ -59,6 +53,12 @@
       "type": "income",
       "value": 123,
       "id": 10
+    },
+    {
+      "title": "123123",
+      "type": "outcome",
+      "value": 123123123,
+      "id": 11
     }
   ]
 }
