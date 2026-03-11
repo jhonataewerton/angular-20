@@ -59,6 +59,12 @@
       "type": "outcome",
       "value": 123123123,
       "id": 11
+    },
+    {
+      "title": "teste",
+      "type": "outcome",
+      "value": "123123123123.00",
+      "id": 12
     }
   ]
 }
