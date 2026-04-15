@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { UserCredentials } from '../interfaces/user-credentials';
 import { AuthToken } from '../interfaces/auth-token';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +21,9 @@ export class AuthService {
           statusText: 'Unauthorized ',
         }),
     );
+  }
+
+  getCurrentUser(token: string): Observable<User> {
+    return of({ username: 'admin' });
   }
 }

@@ -7,6 +7,9 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserCredentials } from '../../interfaces/user-credentials';
+import { AuthTokenStorageService } from '../../services/auth-token-storage.service';
+import { LoggedInStoreService } from '../../stores/logged-in-store.service';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +20,9 @@ import { UserCredentials } from '../../interfaces/user-credentials';
 export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
+  authTokenStorageService = inject(AuthTokenStorageService);
+  loggedInStoreService = inject(LoggedInStoreService);
+
   form = new FormGroup({
     user: new FormControl('', { validators: [Validators.required] }),
     password: new FormControl('', { validators: [Validators.required] }),
@@ -29,15 +35,22 @@ export class LoginComponent {
       password: this.form.controls.password.value as string,
     };
 
-    this.authService.login(payload).subscribe({
-      next: (res) => {
-        this.router.navigate(['']);
-      },
-      error: (response: HttpErrorResponse) => {
-        if (response.status === 401) {
-          this.form.setErrors({ invalidCredentials: true });
-        }
-      },
-    });
+    this.authService
+      .login(payload)
+      .pipe(
+        tap((res) => this.authTokenStorageService.set(res.token)),
+        switchMap((res) => this.authService.getCurrentUser(res.token)),
+        tap((user) => this.loggedInStoreService.setUser(user)),
+      )
+      .subscribe({
+        next: (res) => {
+          this.router.navigate(['']);
+        },
+        error: (response: HttpErrorResponse) => {
+          if (response.status === 401) {
+            this.form.setErrors({ invalidCredentials: true });
+          }
+        },
+      });
   }
 }
