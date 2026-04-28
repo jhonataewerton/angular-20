@@ -1,29 +1,33 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { UserCredentials } from '../interfaces/user-credentials';
-import { AuthToken } from '../interfaces/auth-token';
-import { User } from '../interfaces/user';
+import { HttpErrorResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, of, throwError } from "rxjs";
+import { UserCredentials } from "../interfaces/user-credentials";
+import { AuthToken } from "../interfaces/auth-token";
+import { User } from "../interfaces/user";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AuthService {
   login(payload: UserCredentials): Observable<AuthToken> {
-    if (payload.user === 'admin' && payload.password === '123') {
-      return of({ token: 'fake-token' });
+    if (payload.user === "admin" && payload.password === "123") {
+      return of({ token: "fake-token" });
     }
 
     return throwError(
       () =>
         new HttpErrorResponse({
           status: 401,
-          statusText: 'Unauthorized ',
-        }),
+          statusText: "Unauthorized ",
+        })
     );
   }
 
   getCurrentUser(token: string): Observable<User> {
-    return of({ username: 'admin' });
+    return of({ username: "admin" });
+  }
+
+  refreshToken(token: string): Observable<AuthToken> {
+    return of({ token: "fake-token" });
   }
 }
