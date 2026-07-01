@@ -4,7 +4,7 @@ import { AuthService } from "../services/auth.service";
 import { tap, switchMap, pipe } from "rxjs";
 import { AuthTokenStorageService } from "../services/auth-token-storage.service";
 import { LoggedInStoreService } from "../stores/logged-in-store.service";
-import { AuthTokenReponse } from "../interfaces/auth-token";
+import { AuthTokenResponse } from "../interfaces/auth-token";
 
 @Injectable({
   providedIn: "root",
@@ -26,7 +26,7 @@ export class LoginFacadeService {
 
   private createUserSession() {
     return pipe(
-      tap((res: AuthTokenReponse) =>
+      tap((res: AuthTokenResponse) =>
         this.authTokenStorageService.set(res.token)
       ),
       switchMap((res) => this.authService.getCurrentUser(res.token)),

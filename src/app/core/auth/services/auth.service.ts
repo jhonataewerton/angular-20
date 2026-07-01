@@ -2,14 +2,14 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
 import { UserCredentials } from "../interfaces/user-credentials";
-import { AuthToken } from "../interfaces/auth-token";
+import { AuthTokenResponse } from "../interfaces/auth-token";
 import { User } from "../interfaces/user";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  login(payload: UserCredentials): Observable<AuthToken> {
+  login(payload: UserCredentials): Observable<AuthTokenResponse> {
     if (payload.user === "admin" && payload.password === "123") {
       return of({ token: "fake-token" });
     }
@@ -23,11 +23,15 @@ export class AuthService {
     );
   }
 
+  logout() {
+    return of({});
+  }
+
   getCurrentUser(token: string): Observable<User> {
     return of({ username: "admin" });
   }
 
-  refreshToken(token: string): Observable<AuthToken> {
+  refreshToken(token: string): Observable<AuthTokenResponse> {
     return of({ token: "fake-token" });
   }
 }
