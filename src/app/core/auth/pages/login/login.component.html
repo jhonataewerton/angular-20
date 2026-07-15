@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <mat-form-field class="w-100 mb-24">
+  <mat-form-field appFullWidth class="mb-24">
     <mat-label>Usuário</mat-label>
     <input matInput placeholder="Digite o usuário" formControlName="user" required />
 
@@ -8,7 +8,7 @@
     }
   </mat-form-field>
 
-  <mat-form-field class="w-100 mb-24">
+  <mat-form-field appFullWidth class="mb-24">
     <mat-label>Senha</mat-label>
     <input
       matInput

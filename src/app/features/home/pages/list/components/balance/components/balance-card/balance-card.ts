@@ -1,14 +1,15 @@
-import { Component, computed, input } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
+import { Component, computed, input } from "@angular/core";
+import { MatCardModule } from "@angular/material/card";
+import { HumanizeCurrencyPipe } from "./pipes/humanize-currency-pipe";
 
-type CardType = 'income' | 'outcome' | 'balance';
-type ValueCssClass = 'income' | 'outcome' | 'zero';
+type CardType = "income" | "outcome" | "balance";
+type ValueCssClass = "income" | "outcome" | "zero";
 
 @Component({
-  selector: 'app-balance-card',
-  imports: [MatCardModule],
-  templateUrl: './balance-card.html',
-  styleUrl: './balance-card.scss',
+  selector: "app-balance-card",
+  imports: [MatCardModule, HumanizeCurrencyPipe],
+  templateUrl: "./balance-card.html",
+  styleUrl: "./balance-card.scss",
 })
 export class BalanceCard {
   type = input.required<CardType>();
@@ -16,15 +17,15 @@ export class BalanceCard {
   value = input.required<number>();
 
   cssClass = computed<ValueCssClass>(() => {
-    if (this.type() === 'income') {
-      return 'income';
+    if (this.type() === "income") {
+      return "income";
     }
-    if (this.type() === 'outcome') {
-      return 'outcome';
+    if (this.type() === "outcome") {
+      return "outcome";
     }
     if (this.value() === 0) {
-      return 'zero';
+      return "zero";
     }
-    return this.value() > 0 ? 'income' : 'outcome';
+    return this.value() > 0 ? "income" : "outcome";
   });
 }

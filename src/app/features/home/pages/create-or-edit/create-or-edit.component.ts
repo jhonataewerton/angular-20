@@ -1,20 +1,29 @@
-import { Component, inject, input, computed } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatAnchor, MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { NgxMaskDirective } from 'ngx-mask';
+import { Component, inject, input, computed } from "@angular/core";
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatAnchor, MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { NgxMaskDirective } from "ngx-mask";
 
-import { Router } from '@angular/router';
-import { tap } from 'rxjs';
-import { FeedbackService } from '@shared/feddback/services/feedback.service';
-import { TransactionType } from '@shared/transaction/enums/transaction-type';
-import { Transaction, TransactionPayload } from '@shared/transaction/interfaces/transaction';
-import { TransactionsService } from '@shared/transaction/services/transactions.service';
+import { Router } from "@angular/router";
+import { tap } from "rxjs";
+import { FeedbackService } from "@shared/feddback/services/feedback.service";
+import { TransactionType } from "@shared/transaction/enums/transaction-type";
+import {
+  Transaction,
+  TransactionPayload,
+} from "@shared/transaction/interfaces/transaction";
+import { TransactionsService } from "@shared/transaction/services/transactions.service";
+import { CustomFormFieldDirective } from "@shared/material/form-field/directives/custom-form-field.directive";
 
 @Component({
-  selector: 'app-create',
+  selector: "app-create",
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -23,9 +32,10 @@ import { TransactionsService } from '@shared/transaction/services/transactions.s
     MatButtonModule,
     MatButtonToggleModule,
     NgxMaskDirective,
+    CustomFormFieldDirective,
   ],
-  templateUrl: './create-or-edit.component.html',
-  styleUrl: './create-or-edit.component.scss',
+  templateUrl: "./create-or-edit.component.html",
+  styleUrl: "./create-or-edit.component.scss",
 })
 export class CreateOrEditComponent {
   private transactionService = inject(TransactionsService);
@@ -41,16 +51,16 @@ export class CreateOrEditComponent {
   form = computed(
     () =>
       new FormGroup({
-        type: new FormControl(this.transaction()?.type ?? '', {
+        type: new FormControl(this.transaction()?.type ?? "", {
           validators: [Validators.required],
         }),
-        title: new FormControl(this.transaction()?.title ?? '', {
+        title: new FormControl(this.transaction()?.title ?? "", {
           validators: [Validators.required],
         }),
-        value: new FormControl(this.transaction()?.value ?? '', {
+        value: new FormControl(this.transaction()?.value ?? "", {
           validators: [Validators.required],
         }),
-      }),
+      })
   );
 
   submit() {
@@ -63,7 +73,7 @@ export class CreateOrEditComponent {
     };
 
     this.createOrEdit(payload)
-      .pipe(tap(() => this.router.navigate(['/'])))
+      .pipe(tap(() => this.router.navigate(["/"])))
       .subscribe();
   }
 
@@ -71,11 +81,19 @@ export class CreateOrEditComponent {
     if (this.isEdit()) {
       return this.transactionService
         .put(this.transaction()!.id, payload)
-        .pipe(tap(() => this.feedbackService.success('Transação alterada com sucesso')));
+        .pipe(
+          tap(() =>
+            this.feedbackService.success("Transação alterada com sucesso")
+          )
+        );
     } else {
       return this.transactionService
         .post(payload)
-        .pipe(tap(() => this.feedbackService.success('Transação criada com sucesso')));
+        .pipe(
+          tap(() =>
+            this.feedbackService.success("Transação criada com sucesso")
+          )
+        );
     }
   }
 }

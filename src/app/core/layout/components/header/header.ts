@@ -1,28 +1,12 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { LogoutFacadeService } from "../../../auth/facades/logout-facade.service";
-import { Router } from "@angular/router";
-import { LoggedInStoreService } from "../../../auth/stores/logged-in-store.service";
+import { ToggleSidenavVisibilityComponent } from "./toggle-sidenav-visibility/toggle-sidenav-visibility.component";
 
 @Component({
   selector: "app-header",
-  imports: [MatToolbarModule, MatButtonModule],
+  imports: [MatToolbarModule, MatButtonModule, ToggleSidenavVisibilityComponent],
   templateUrl: "./header.html",
   styleUrl: "./header.scss",
 })
-export class Header {
-  private readonly logoutFacadeService = inject(LogoutFacadeService);
-  private readonly router = inject(Router);
-  private readonly loggedInUserStoreService = inject(LoggedInStoreService);
-
-  isLoggedIn = computed(() => this.loggedInUserStoreService.isLoggedIn());
-
-  logout() {
-    this.logoutFacadeService.logout().subscribe({
-      next: () => {
-        this.router.navigate(["/auth/login"]);
-      },
-    });
-  }
-}
+export class Header {}
